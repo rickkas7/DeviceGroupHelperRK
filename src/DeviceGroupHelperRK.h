@@ -141,6 +141,10 @@ public:
      * even if no changes occurred. You can use getGroups or isInGroup() in
      * the UPDATED callback. The group parameter is always NULL for the UPDATED
      * notification.
+     * 
+     * The notifyCallback parameter is a std::function so it can also be a C++11 lambda
+     * instead of a plain function. This is an easy way to make the callback a member
+     * function of your class instead of a static member function.
      */
     DeviceGroupHelper &withNotifyCallback(std::function<void(NotificationType, const char *)> notifyCallback) { this->notifyCallback = notifyCallback; return *this; };
 
@@ -163,7 +167,7 @@ public:
      * 
      * It's normally done like:
      * 
-     * ```
+     * ```cpp
      * DeviceGroupHelper::instance().loop();
      * ```
      * 
@@ -175,6 +179,15 @@ public:
      * @brief Gets the set of all groups the device current belongs to
      * 
      * This uses the previously retrieved list. This is fast and does not use the network.
+     * 
+     * To iterate the group list, you can use something like this:
+     * 
+     * ```cpp
+     * auto groups = DeviceGroupHelper::instance().getGroups();
+     * for(auto it = groups.begin(); it != groups.end(); it++) {
+     *     Log.info("group %s", (*it).c_str());
+     * }
+     * ```
      */
     const std::unordered_set<std::string> getGroups() const { return groups; };
 

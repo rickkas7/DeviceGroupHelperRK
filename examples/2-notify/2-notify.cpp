@@ -36,3 +36,11 @@ void groupCallback(DeviceGroupHelper::NotificationType notificationType, const c
         break;
     }
 }
+
+
+/*
+    auto groups = DeviceGroupHelper::instance().getGroups();
+    for(auto it = groups.begin(); it != groups.end(); it++) {
+        Log.info("group %s", (*it).c_str());
+    }
+*/

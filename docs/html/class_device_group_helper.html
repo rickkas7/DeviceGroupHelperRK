@@ -400,8 +400,13 @@ static <a class="el" href="class_device_group_helper.html">DeviceGroupHelper</a>
 </div><div class="memdoc">
 
 <p>Gets the set of all groups the device current belongs to. </p>
-<p>This uses the previously retrieved list. This is fast and does not use the network. </p>
-
+<p>This uses the previously retrieved list. This is fast and does not use the network.</p>
+<p>To iterate the group list, you can use something like this:</p>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> <a class="code" href="class_device_group_helper.html#a6d233beb230798a545d7372857b92158">groups</a> = <a class="code" href="class_device_group_helper.html#a47b4e36d163d5b348519ffa64ec38df4">DeviceGroupHelper::instance</a>().<a class="code" href="class_device_group_helper.html#a14cf11713fba409f8dbf459348cb018b">getGroups</a>();</div>
+<div class="line"><span class="keywordflow">for</span>(<span class="keyword">auto</span> it = <a class="code" href="class_device_group_helper.html#a6d233beb230798a545d7372857b92158">groups</a>.begin(); it != <a class="code" href="class_device_group_helper.html#a6d233beb230798a545d7372857b92158">groups</a>.end(); it++) {</div>
+<div class="line">    Log.info(<span class="stringliteral">&quot;group %s&quot;</span>, (*it).c_str());</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ac20efc41e233926ff497043043eba785"></a>
@@ -688,7 +693,8 @@ static <a class="el" href="class_device_group_helper.html">DeviceGroupHelper</a>
 <li><a class="el" href="class_device_group_helper.html#a82b992441e25ce8db2007d04814be8b0ab3461745d64b12346503b2980e436db5" title="This group was removed.">NotificationType::REMOVED</a> A group was removed from this device</li>
 <li><a class="el" href="class_device_group_helper.html#a82b992441e25ce8db2007d04814be8b0ac5d66c61a88f1b214933a91fda1e13f5" title="The groups were updated. Use getGroups() to get a set of all group names.">NotificationType::UPDATED</a> The list was updated</li>
 </ul>
-<p>The UPDATED notification is made after ADDED and REMOVED, and occurs even if no changes occurred. You can use getGroups or <a class="el" href="class_device_group_helper.html#ac20efc41e233926ff497043043eba785" title="Returns true if this device belongs to the specified group.">isInGroup()</a> in the UPDATED callback. The group parameter is always NULL for the UPDATED notification. </p>
+<p>The UPDATED notification is made after ADDED and REMOVED, and occurs even if no changes occurred. You can use getGroups or <a class="el" href="class_device_group_helper.html#ac20efc41e233926ff497043043eba785" title="Returns true if this device belongs to the specified group.">isInGroup()</a> in the UPDATED callback. The group parameter is always NULL for the UPDATED notification.</p>
+<p>The notifyCallback parameter is a std::function so it can also be a C++11 lambda instead of a plain function. This is an easy way to make the callback a member function of your class instead of a static member function. </p>
 
 </div>
 </div>
@@ -831,9 +837,11 @@ static <a class="el" href="class_device_group_helper.html">DeviceGroupHelper</a>
 </ul>
 </div><!-- contents -->
 <div class="ttc" id="aclass_device_group_helper_html_a13243a73bb51187dab222ad55153c76d"><div class="ttname"><a href="class_device_group_helper.html#a13243a73bb51187dab222ad55153c76d">DeviceGroupHelper::loop</a></div><div class="ttdeci">void loop()</div><div class="ttdoc">You must call loop() from global application loop()!</div><div class="ttdef"><b>Definition:</b> DeviceGroupHelperRK.cpp:25</div></div>
+<div class="ttc" id="aclass_device_group_helper_html_a14cf11713fba409f8dbf459348cb018b"><div class="ttname"><a href="class_device_group_helper.html#a14cf11713fba409f8dbf459348cb018b">DeviceGroupHelper::getGroups</a></div><div class="ttdeci">const std::unordered_set&lt; std::string &gt; getGroups() const</div><div class="ttdoc">Gets the set of all groups the device current belongs to.</div><div class="ttdef"><b>Definition:</b> DeviceGroupHelperRK.h:192</div></div>
 <div class="ttc" id="aclass_device_group_helper_html_aaf814601ee06ab2cf23aca3104cabfb5"><div class="ttname"><a href="class_device_group_helper.html#aaf814601ee06ab2cf23aca3104cabfb5">DeviceGroupHelper::setup</a></div><div class="ttdeci">void setup()</div><div class="ttdoc">You must call setup() from global application setup()!</div><div class="ttdef"><b>Definition:</b> DeviceGroupHelperRK.cpp:16</div></div>
-<div class="ttc" id="aclass_device_group_helper_html_a82b992441e25ce8db2007d04814be8b0"><div class="ttname"><a href="class_device_group_helper.html#a82b992441e25ce8db2007d04814be8b0">DeviceGroupHelper::NotificationType</a></div><div class="ttdeci">NotificationType</div><div class="ttdoc">Used for the notify callback to specify what is being notified of.</div><div class="ttdef"><b>Definition:</b> DeviceGroupHelperRK.h:39</div></div>
+<div class="ttc" id="aclass_device_group_helper_html_a82b992441e25ce8db2007d04814be8b0"><div class="ttname"><a href="class_device_group_helper.html#a82b992441e25ce8db2007d04814be8b0">DeviceGroupHelper::NotificationType</a></div><div class="ttdeci">NotificationType</div><div class="ttdoc">Used for the notify callback to specify what is being notified of.</div><div class="ttdef"><b>Definition:</b> DeviceGroupHelperRK.h:42</div></div>
 <div class="ttc" id="aclass_device_group_helper_html_a47b4e36d163d5b348519ffa64ec38df4"><div class="ttname"><a href="class_device_group_helper.html#a47b4e36d163d5b348519ffa64ec38df4">DeviceGroupHelper::instance</a></div><div class="ttdeci">static DeviceGroupHelper &amp; instance()</div><div class="ttdoc">Get the singleton instance of this class.</div><div class="ttdef"><b>Definition:</b> DeviceGroupHelperRK.cpp:8</div></div>
+<div class="ttc" id="aclass_device_group_helper_html_a6d233beb230798a545d7372857b92158"><div class="ttname"><a href="class_device_group_helper.html#a6d233beb230798a545d7372857b92158">DeviceGroupHelper::groups</a></div><div class="ttdeci">std::unordered_set&lt; std::string &gt; groups</div><div class="ttdoc">Groups this device belongs to.</div><div class="ttdef"><b>Definition:</b> DeviceGroupHelperRK.h:318</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
