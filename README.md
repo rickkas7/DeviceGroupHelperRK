@@ -95,6 +95,19 @@ https://api.particle.io/v1/products/7615/devices/{{PARTICLE_DEVICE_ID}}
 {"groups":[{{{groups}}}]}
 ```
 
+- In version 0.0.2, there are other fields you can add to the response template:
+
+```
+{"groups":[{{{groups}}}],"name":"{{{name}}}","product_id":{{product_id}},"development":{{development}},"notes":"{{{notes}}}"}
+```
+
+You can also include a subset of these fields if you prefer. This can save data and is useful if you have very long device notes that would exceed the size of the publish with the other fields.
+
+```
+{"groups":[{{{groups}}}],"product_id":{{product_id}}}
+```
+
+
 ![Advanced Settings](images/webhook-advanced.png)
 
 ## Device firmware
@@ -215,7 +228,29 @@ You can respond to the `UPDATED` notification if you want to know if the list ha
 
 You can also use the `ADDED` or `REMOVED` notification to know if the group membership changed. You also get `ADDED` calls on the first retrieval of the list.
 
+### Other fields
+
+If you add other fields to your webhook, you can also use the accessors:
+
+```
+const char *getDeviceName() { return name; };
+
+int getProductId() const { return product_id; };
+
+String getDeviceNotes() const { return notes; };
+
+bool getIsDevelopment() const { return development; };
+```
+
+These will return the values sent by the webhook response if you've included them in the response template.
+
+See example 3-extra-fields for more information.
+
 ## Version History
+
+### 0.0.2 (2021-08-20)
+
+- Added optional feature to include the name, notes, development flag, and product_id
 
 ### 0.0.1 (2021-03-22)
 

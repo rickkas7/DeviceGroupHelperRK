@@ -225,6 +225,27 @@ public:
      */
     void update();
 
+
+    /**
+     * @brief Get the device Name (if sent by the webhook)
+     */
+    const char *getDeviceName() { return name.c_str(); };
+
+    /**
+     * @brief Get the Product ID (if sent by the webhook)
+     */
+    int getProductId() const { return product_id; };
+
+    /**
+     * @brief Device Notes (if sent by the webhook)
+     */
+    const char *getDeviceNotes() const { return notes.c_str(); };
+
+    /**
+     * @brief Developent device (if sent by the webhook)
+     */
+    bool getIsDevelopment() const { return development; };
+
 protected:
     /**
      * @brief Constructor (protected)
@@ -316,6 +337,26 @@ protected:
      * @brief Groups this device belongs to
      */
     std::unordered_set<std::string> groups;
+
+    /**
+     * @brief Device Name (if sent by the webhook)
+     */
+    String name;
+
+    /**
+     * @brief Product ID (if sent by the webhook)
+     */
+    int product_id;
+
+    /**
+     * @brief Device Notes (if sent by the webhook)
+     */
+    String notes;
+
+    /**
+     * @brief Developent device (if sent by the webhook)
+     */
+    bool development = false;
 
     /**
      * @brief Millis value when the group list was last updated, or 0 for not updated.

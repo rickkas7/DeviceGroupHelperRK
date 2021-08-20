@@ -112,6 +112,22 @@ void DeviceGroupHelper::subscriptionHandler(const char *event, const char *data)
                 _log.trace("in group %s", group);
             }
         }
+        else 
+        if (iter.name() == "name") {
+            name = iter.value().toString().data();
+        }
+        else 
+        if (iter.name() == "product_id") {
+            product_id = iter.value().toInt();
+        }
+        else 
+        if (iter.name() == "notes") {
+            notes = iter.value().toString().data();
+        }
+        else 
+        if (iter.name() == "development") {
+            development = iter.value().toBool();
+        }
     }
 
     if (notifyCallback) {
