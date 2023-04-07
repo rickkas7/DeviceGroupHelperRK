@@ -248,6 +248,10 @@ See example 3-extra-fields for more information.
 
 ## Version History
 
+### 0.0.3 (2023-04-07)
+
+- Added withFunction() to allow the device groups to be set by function call as well as subscription
+
 ### 0.0.2 (2021-08-20)
 
 - Added optional feature to include the name, notes, development flag, and product_id

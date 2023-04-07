@@ -119,6 +119,14 @@ public:
     unsigned long getPeriodicTimeMs() const { return periodicTimeMs; };
 
     /**
+     * @brief Register a function handler (optional). Must call this before setup().
+     * 
+     * @param functionName Function name to register.
+     * @return DeviceGroupHelper& 
+     */
+    DeviceGroupHelper &withFunction(const char *functionName) { this->functionName = functionName; return *this; };
+
+    /**
      * @brief Sets a function to be called when the group list is updated.
      * 
      * @param notifyCallback The function to call
@@ -309,6 +317,11 @@ protected:
     void subscriptionHandler(const char *event, const char *data);
 
     /**
+     * @brief Function handler to receive the same data as the subscription handler
+     */
+    int functionHandler(String cmd);
+
+    /**
      * @brief Event name, set with withEventName(). This must match the webhook.
      */
     String eventName = "G52ES20Q_DeviceGroup";
@@ -382,6 +395,11 @@ protected:
      * @brief Callback function for when group membership is updated.
      */
     std::function<void(NotificationType, const char *)> notifyCallback = 0;
+
+    /**
+     * @brief Function handler to register (optional)
+     */
+    String functionName;
 
     /**
      * @brief Singleton instance of this class

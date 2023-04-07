@@ -20,6 +20,10 @@ void DeviceGroupHelper::setup() {
     if (retrievalMode == RetrievalMode::AT_START || retrievalMode == RetrievalMode::PERIODIC) {
         stateHandler = &DeviceGroupHelper::stateWaitConnected;
     }
+
+    if (functionName.length() > 0) {
+        Particle.function(functionName, &DeviceGroupHelper::functionHandler, this);
+    }
 }
 
 void DeviceGroupHelper::loop() {
@@ -94,6 +98,10 @@ void DeviceGroupHelper::stateWaitRetry() {
 }
 
 
+int DeviceGroupHelper::functionHandler(String cmd) {
+    subscriptionHandler("", cmd.c_str());
+    return 0;
+}
 
 void DeviceGroupHelper::subscriptionHandler(const char *event, const char *data) {
 //    _log.info("event %s data %s", event, data);
