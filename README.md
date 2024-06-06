@@ -104,7 +104,7 @@ https://api.particle.io/v1/products/7615/devices/{{PARTICLE_DEVICE_ID}}
 You can also include a subset of these fields if you prefer. This can save data and is useful if you have very long device notes that would exceed the size of the publish with the other fields.
 
 ```
-{"groups":[{{{groups}}}],"product_id":{{product_id}}}
+{"groups":[{{{groups}}}],"product_id":{{product_id}}
 ```
 
 
@@ -247,6 +247,10 @@ These will return the values sent by the webhook response if you've included the
 See example 3-extra-fields for more information.
 
 ## Version History
+
+### 0.0.4 (2024-06-06)
+
+- Fix typo in webhook template
 
 ### 0.0.3 (2023-04-07)
 
